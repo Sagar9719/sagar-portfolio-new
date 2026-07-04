@@ -1,19 +1,19 @@
 /** @type {import('next').NextConfig} */
 
-// 👇 CHANGE THIS to your GitHub repository name (case-sensitive).
-//    Your live URL will be https://<username>.github.io/<repo>/
+// Repo name — only used for GitHub Pages subpath.
 const repo = "sagar-portfolio-new";
 
-const isProd = process.env.NODE_ENV === "production";
-const basePath = isProd ? `/${repo}` : "";
+// GitHub Pages sets this in its workflow; Vercel does not.
+const isGithubPages = process.env.GITHUB_PAGES === "true";
+const basePath = isGithubPages ? `/${repo}` : "";
 
 const nextConfig = {
-  output: "export", // emit a static site into ./out
-  images: { unoptimized: true }, // required: no image server on GitHub Pages
-  basePath, // serve under /<repo> in production
-  assetPrefix: basePath || undefined, // load JS/CSS from /<repo>
-  env: { NEXT_PUBLIC_BASE_PATH: basePath }, // expose to client code
-  trailingSlash: true, // GitHub Pages serves folder/index.html reliably
+  ...(isGithubPages ? { output: "export" } : {}),
+  images: { unoptimized: true },
+  basePath,
+  assetPrefix: basePath || undefined,
+  env: { NEXT_PUBLIC_BASE_PATH: basePath },
+  trailingSlash: true,
   reactStrictMode: true,
 };
 
