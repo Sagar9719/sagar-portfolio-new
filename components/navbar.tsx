@@ -40,7 +40,10 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 24);
+      setOpen(false); // close mobile menu when the user scrolls
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -52,7 +55,7 @@ export function Navbar() {
       transition={{ duration: 0.6, delay: 1.2, ease: "easeOut" }}
       className={cn(
         "fixed left-1/2 top-4 z-50 w-[min(64rem,92vw)] -translate-x-1/2 rounded-2xl px-5 py-3 transition-all duration-300",
-        scrolled ? "glass shadow-lg shadow-black/10" : "bg-transparent"
+        scrolled || open ? "glass shadow-lg shadow-black/10" : "bg-transparent"
       )}
     >
       <nav className="flex items-center justify-between">
@@ -80,11 +83,12 @@ export function Navbar() {
           </span>
           <ThemeToggle />
           <button
-            className="glass rounded-full p-2.5 md:hidden"
+            className="glass rounded-full p-2.5 text-brand-indigo md:hidden"
             onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
+            aria-expanded={open}
           >
-            {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </nav>
@@ -95,15 +99,12 @@ export function Navbar() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25 }}
             className="overflow-hidden md:hidden"
           >
             {links.map((l) => (
-              <li key={l.href} className="border-t border-[rgb(var(--border))] first:mt-3">
-                <a
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  className="block py-3 text-sm text-muted hover:text-brand-indigo"
-                >
+        <li key={l.href} className="border-t border-[rgb(var(--border))] first:mt-3">
+                <a href={l.href} onClick={() => setOpen(false)} className="block py-3 text-sm font-medium text-muted transition-colors hover:text-brand-indigo">
                   {l.label}
                 </a>
               </li>

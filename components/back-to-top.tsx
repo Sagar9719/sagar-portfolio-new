@@ -20,11 +20,14 @@ export function BackToTop() {
           initial={{ opacity: 0, scale: 0.6 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.6 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           aria-label="Back to top"
-          className="glass glow-border fixed bottom-6 right-6 z-50 rounded-full p-3 text-brand-indigo shadow-lg hover:scale-110 transition-transform"
+          className="fixed right-5 z-[90] flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-brand-indigo via-brand-blue to-brand-cyan text-white shadow-xl shadow-brand-indigo/40 ring-1 ring-white/20"
+          style={{ bottom: "max(1.25rem, env(safe-area-inset-bottom))" }}
         >
-          <ArrowUp className="h-5 w-5" />
+          <ArrowUp className="h-5 w-5" strokeWidth={2.5} />
         </motion.button>
       )}
     </AnimatePresence>
