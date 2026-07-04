@@ -26,11 +26,7 @@ function ThemeToggle() {
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
       className="glass rounded-full p-2.5 transition-transform hover:scale-110 hover:text-brand-indigo"
     >
-      {mounted && resolvedTheme === "dark" ? (
-        <Sun className="h-4 w-4" />
-      ) : (
-        <Moon className="h-4 w-4" />
-      )}
+      {mounted && resolvedTheme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
     </button>
   );
 }
@@ -42,7 +38,7 @@ export function Navbar() {
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 24);
-      setOpen(false); // close mobile menu when the user scrolls
+      setOpen(false);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -54,36 +50,27 @@ export function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, delay: 1.2, ease: "easeOut" }}
       className={cn(
-        "fixed left-1/2 top-4 z-50 w-[min(64rem,92vw)] -translate-x-1/2 rounded-2xl px-5 py-3 transition-all duration-300",
+        "fixed left-1/2 top-4 z-50 w-[min(64rem,92vw)] -translate-x-1/2 rounded-2xl px-4 py-3 transition-all duration-300 sm:px-5",
         scrolled || open ? "glass shadow-lg shadow-black/10" : "bg-transparent"
       )}
     >
-      <nav className="flex items-center justify-between">
-        <a href="#top" className="font-display text-lg font-bold tracking-tight">
-          Sagar<span className="gradient-text">.</span>
-        </a>
+      <nav className="flex items-center justify-between gap-3">
+        <a href="#top" className="font-display text-lg font-bold tracking-tight">Sagar<span className="gradient-text">.</span></a>
 
         <ul className="hidden items-center gap-6 md:flex">
           {links.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                className="text-sm text-muted transition-colors hover:text-brand-indigo"
-              >
-                {l.label}
-              </a>
-            </li>
+            <li key={l.href}><a href={l.href} className="text-sm text-muted transition-colors hover:text-brand-indigo">{l.label}</a></li>
           ))}
         </ul>
 
-        <div className="flex items-center gap-3">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           <span className="hidden items-center gap-2 rounded-full glass px-3 py-1.5 text-xs font-medium text-green-500 sm:inline-flex">
             <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse-dot" />
             Available
           </span>
           <ThemeToggle />
           <button
-            className="glass rounded-full p-2.5 text-brand-indigo md:hidden"
+            className="glass flex items-center justify-center rounded-full p-2.5 text-brand-indigo md:hidden"
             onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
             aria-expanded={open}
@@ -103,11 +90,7 @@ export function Navbar() {
             className="overflow-hidden md:hidden"
           >
             {links.map((l) => (
-        <li key={l.href} className="border-t border-[rgb(var(--border))] first:mt-3">
-                <a href={l.href} onClick={() => setOpen(false)} className="block py-3 text-sm font-medium text-muted transition-colors hover:text-brand-indigo">
-                  {l.label}
-                </a>
-              </li>
+              <li key={l.href} className="border-t border-[rgb(var(--border))] first:mt-3"><a href={l.href} onClick={() => setOpen(false)} className="block py-3 text-sm font-medium text-muted transition-colors hover:text-brand-indigo">{l.label}</a></li>
             ))}
           </motion.ul>
         )}
