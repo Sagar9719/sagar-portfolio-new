@@ -1,0 +1,17 @@
+import * as React from "react";
+import { cn } from "@/lib/utils";
+
+export function Card({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      className={cn(
+        "glass rounded-2xl p-6 shadow-xl shadow-black/5 transition-all duration-300",
+        className
+      )}
+      {...props}
+    />
+  );
+}
