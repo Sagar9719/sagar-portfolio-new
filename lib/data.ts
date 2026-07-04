@@ -8,7 +8,7 @@ export const site = {
     "Freelancer",
   ],
   location: "Noida, India",
-  email: "sagarsingh162003@gmail.com",
+  email: "sagarsingh531002@gmail.com",
   phone: "+91 8077966340",
   whatsapp: "https://wa.me/918077966340",
   tel: "tel:+918077966340",
